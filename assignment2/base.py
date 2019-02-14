@@ -9,7 +9,7 @@ from java.lang import Math
 __all__ = ['DS_NAME', 'TEST_DATA_FILE', 'TRAIN_DATA_FILE', 'VALIDATE_DATA_FILE', 'OUTPUT_DIRECTORY',
            'initialize_instances', 'error_on_data_set', 'train']
 
-DS_NAME = 'HTRU2Data'
+DS_NAME = 'transformed_adult_income'
 
 TEST_DATA_FILE = 'data/{}_test.csv'.format(DS_NAME)
 TRAIN_DATA_FILE = 'data/{}_train.csv'.format(DS_NAME)
@@ -40,13 +40,19 @@ def initialize_instances(infile):
     instances = []
 
     # Read in the CSV file
+    #https://stackoverflow.com/questions/11349333/when-processing-csv-data-how-do-i-ignore-the-first-line-of-data/11350095
     with open(infile, "r") as dat:
+        has_header = csv.Sniffer().has_header(dat.read(1024))
+        dat.seek(0)  # Rewind.
         reader = csv.reader(dat)
+
+        if has_header:
+            next(reader)  # Skip header row.
 
         for row in reader:
             instance = Instance([float(value) for value in row[:-1]])
             # TODO: Set to <= 0 to handle 0/1 labels and not just -1/1?
-            instance.setLabel(Instance(0 if float(row[-1]) < 0 else 1))
+            instance.setLabel(Instance(0 if float(row[-1]) <= 0 else 1))
             instances.append(instance)
 
     return instances
@@ -137,7 +143,7 @@ def train(oa, network, oaName, training_ints, validation_ints, testing_ints, mea
             MSE_val, acc_val, f1_val = error_on_data_set(network, validation_ints, measure)
             MSE_tst, acc_tst, f1_tst = error_on_data_set(network, testing_ints, measure)
             txt = '{},{},{},{},{},{},{},{},{},{},{}\n'.format(iteration, MSE_trg, MSE_val, MSE_tst, acc_trg, acc_val,
-                                                             acc_tst, f1_trg, f1_val, f1_tst, times[-1])
+                                                              acc_tst, f1_trg, f1_val, f1_tst, times[-1])
             print txt
             with open(outfile, 'a+') as f:
                 f.write(txt)
