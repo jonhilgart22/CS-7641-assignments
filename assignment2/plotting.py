@@ -125,8 +125,8 @@ def read_data_file(file, nn_curve=False):
     if nn_curve:
         # I'm not sure why I have to do this mask, but some rows do not contain data
         df = df[~df.index.isin(['iterations', 'iteration'])]
-        df = df[df.index  <= 2000]
-        #df = df.iloc[:2000, :]
+        df = df[df.index  <= 5000]
+        #df = df.iloc[:5000, :]
     return df
 
 
@@ -186,7 +186,7 @@ def plot_mimic_data(problem_name, mimic_files, output_dir, nn_curve=False):
             if nn_curve:
                 # For the NN problem convergence happens relatively early (except for SA)
                 main_df = main_df[~main_df.index.isin(['iteration', 'iterations'])]  # Remove the string indexes
-                main_df = main_df[main_df.index <= 2000]
+                main_df = main_df[main_df.index <= 5000]
                 p = plot_data('{} - MIMIC {} {}: {} vs Iterations'.format(problem_name, samples, keep,
                                                                           y.capitalize()), main_df[y],
                               sorted(mimic_files[samples][keep].keys()),
@@ -250,7 +250,7 @@ def plot_ga_data(problem_name, ga_files, output_dir, nn_curve=False):
             if nn_curve:
                 # For the NN problem convergence happens relatively early (except for SA)
                 main_df[mate] = reduce(lambda x, y: pd.merge(x, y, on='iterations'), main_df[mate])
-                main_df[mate] = main_df[mate][main_df[mate].index <= 2000]
+                main_df[mate] = main_df[mate][main_df[mate].index <= 5000]
                 p = plot_data('{} - GA {} {}: {} vs Iterations'.format(problem_name, pop, mate,
                                                                        y_label), main_df[mate],
                               sorted(ga_files[pop][mate].keys()),
@@ -353,7 +353,7 @@ def plot_rhc_data(problem_name, rhc_files, output_dir, nn_curve=False):
     if nn_curve:
         # For the NN problem convergence happens relatively early (except for SA)
         main_df = main_df[~main_df.index.isin(['iteration', 'iterations'])]
-        main_df = main_df[main_df.index <= 2000]
+        main_df = main_df[main_df.index <= 5000]
         p = plot_data('{} - RHC: {} vs Iterations'.format(problem_name, y_label), main_df,
                       None, nn_curve=nn_curve,
                       y_label=y_label)
@@ -400,7 +400,7 @@ def plot_backprop_data(problem_name, backprop_files, output_dir, nn_curve=False)
     if nn_curve:
         # For the NN problem convergence happens relatively early (except for SA)
         main_df = main_df[~main_df.index.isin(['iteration', 'iterations'])]
-        main_df = main_df.iloc[:2000, :]
+        main_df = main_df.iloc[:5000, :]
         p = plot_data('{} - Backprop: {} vs Iterations'.format(problem_name, y_label), main_df,
                       None, nn_curve=nn_curve,
                       y_label=y_label)
@@ -457,14 +457,12 @@ def plot_best_curves(problem_name, files, output_dir, nn_curve=False):
         try:
             main_df = list(main_df.values().astype(float))
         except Exception as e:
-            print(main_df, '--------')
             main_df = list(main_df.values())
             main_df = [list(k.values())[0] for k in main_df]
-            print(main_df,'----------')
 
             main_df = reduce(lambda x, y: pd.merge(x, y, on='iterations'), main_df)
             # For the NN problem convergence happens relatively early (except for SA)
-            main_df = main_df[main_df.index <= 2000]
+            main_df = main_df[main_df.index <= 5000]
             #main_df = main_df.iloc[:500, :]
     else:
         p = plot_data('{} - Best: {} vs Iterations'.format(problem_name, 'Function Evals'), main_df['fevals'],
@@ -652,7 +650,7 @@ if __name__ == '__main__':
 
                 df = read_data_file(file, nn_curve=nn_curve)
                 if nn_curve:
-                    df = df[df.index <= 2000]
+                    df = df[df.index <= 5000]
 
                 if nn_curve:
                     max_index = df['f1_tst'].idxmax()
