@@ -42,6 +42,8 @@ if __name__ == '__main__':
                              '(This MUST be used with --dim and a specific experiment)')
     parser.add_argument('--statlog', action='store_true', help='Run only statlog vehicle')
     parser.add_argument('--htru2', action='store_true', help='Run only HTRU2')
+    parser.add_argument('--TransformedBankingData', action='store_true', help='Run only TransformedBankingData vehicle')
+    parser.add_argument('--TransformedAdultIncomeData', action='store_true', help='Run only TransformedAdultIncomeData')
     parser.add_argument('--benchmark', action='store_true', help='Run the benchmark experiments')
     parser.add_argument('--ica', action='store_true', help='Run the ICA experiments')
     parser.add_argument('--pca', action='store_true', help='Run the PCA experiments')
@@ -83,23 +85,27 @@ if __name__ == '__main__':
     logger.info("----------")
 
     datasets = []
-    statlog_details = {
-            'data': loader.StatlogVehicleData(verbose=verbose, seed=seed),
-            'name': 'statlog_vehicle',
-            'readable_name': 'Statlog Vehicle',
+    banking_details = {
+            'data': loader.TransformedBankingData(verbose=verbose, seed=seed),
+            'name': 'TransformedBankingData',
+            'readable_name': 'TransformedBankingData',
         }
-    htru2_details = {
-            'data': loader.HTRU2Data(verbose=verbose, seed=seed),
-            'name': 'htru2',
-            'readable_name': 'HTRU2',
+    adult_income_details = {
+            'data': loader.TransformedAdultIncomeData(verbose=verbose, seed=seed),
+            'name': 'TransformedAdultIncomeData',
+            'readable_name': 'TransformedAdultIncomeData',
         }
     if args.statlog:
-        datasets.append(statlog_details)
+        datasets.append(banking_details)
     elif args.htru2:
-        datasets.append(htru2_details)
+        datasets.append(adult_income_details)
+    elif args.TransformedBankingData:
+        datasets.append(banking_details)
+    elif args.TransformedAdultIncomeData:
+        datasets.append(adult_income_details)
     elif not args.statlog and not args.htru2:
-        datasets.append(statlog_details)
-        datasets.append(htru2_details)
+        datasets.append(banking_details)
+        datasets.append(adult_income_details)
 
     experiment_details = []
     for ds in datasets:

@@ -92,6 +92,7 @@ class DataLoader(ABC):
         self.get_classes()
         self.log("Feature dimensions: {}", self.features.shape)
         self.log("Classes dimensions: {}", self.classes.shape)
+        print(self.classes, 'self.classes')
         self.log("Class values: {}", np.unique(self.classes))
         class_dist = np.histogram(self.classes)[0]
         class_dist = class_dist[np.nonzero(class_dist)]
@@ -322,6 +323,46 @@ class HTRU2Data(DataLoader):
 
     def class_column_name(self):
         return '8'
+
+    def _preprocess_data(self):
+        pass
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
+class TransformedAdultIncomeData(DataLoader):
+    def __init__(self, path='data/transformed_adult_income_train_and_test.csv', verbose=True, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        self._data = pd.read_csv(self._path, header=1)
+
+    def data_name(self):
+        return 'TransformedAdultIncomeData'
+
+    def class_column_name(self):
+        return '100'
+
+    def _preprocess_data(self):
+        pass
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
+class TransformedBankingData(DataLoader):
+    def __init__(self, path='data/transformed_banking.csv', verbose=True, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        self._data = pd.read_csv(self._path, header=1)
+
+    def data_name(self):
+        return 'TransformedBankingData'
+
+    def class_column_name(self):
+        return '43'
 
     def _preprocess_data(self):
         pass

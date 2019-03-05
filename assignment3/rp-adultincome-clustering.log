@@ -1,0 +1,7 @@
+/Users/jonathanhilgart/.pyenv/versions/omscs_ml/lib/python3.6/site-packages/sklearn/externals/joblib/externals/cloudpickle/cloudpickle.py:47: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+2019-03-04 22:04:58,657 - __main__ - INFO - Using seed 1756581924
+2019-03-04 22:04:58,657 - __main__ - INFO - Loading data
+2019-03-04 22:04:58,657 - __main__ - INFO - ----------
+2019-03-04 22:04:59,118 - __main__ - INFO - Running experiments
+2019-03-04 22:04:59,119 - __main__ - INFO - Running RP experiment: TransformedAdultIncomeData (None)
