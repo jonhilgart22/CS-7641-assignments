@@ -139,9 +139,9 @@ if __name__ == '__main__':
         # if args.lda or args.all:
         #     run_experiment(experiment_details, experiments.LDAExperiment, 'LDA', args.dim, args.skiprerun,
         #                    verbose, timings)
-        # if args.svd or args.all:
-        #     run_experiment(experiment_details, experiments.SVDExperiment, 'SVD', args.dim, args.skiprerun,
-        #                    verbose, timings)
+        if args.svd or args.all:
+            run_experiment(experiment_details, experiments.SVDExperiment, 'SVD', args.dim, args.skiprerun,
+                           verbose, timings)
         if args.rf or args.all:
             run_experiment(experiment_details, experiments.RFExperiment, 'RF', args.dim, args.skiprerun,
                            verbose, timings)

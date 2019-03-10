@@ -332,7 +332,7 @@ class HTRU2Data(DataLoader):
 
 
 class TransformedAdultIncomeData(DataLoader):
-    def __init__(self, path='data/transformed_adult_income_train_and_test.csv', verbose=True, seed=1):
+    def __init__(self, path='data/transformed_scale_adult_income_5k.csv', verbose=True, seed=1):
         super().__init__(path, verbose, seed)
 
     def _load_data(self):
@@ -352,7 +352,7 @@ class TransformedAdultIncomeData(DataLoader):
 
 
 class TransformedBankingData(DataLoader):
-    def __init__(self, path='data/transformed_banking.csv', verbose=True, seed=1):
+    def __init__(self, path='data/transformed_scale_banking_5k.csv', verbose=True, seed=1):
         super().__init__(path, verbose, seed)
 
     def _load_data(self):
