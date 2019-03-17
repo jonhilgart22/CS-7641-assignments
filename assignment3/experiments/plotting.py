@@ -193,12 +193,12 @@ def plot_scree(title, df, problem_name, multiple_runs=False, xlabel='Number of C
     if multiple_runs:
         y_points = np.mean(df.iloc[:, 1:-1], axis=1)
         y_std = np.std(df.iloc[:, 1:-1], axis=1)
-        plt.plot(x_points, y_points, 'o-', linewidth=1, markersize=2,
+        plt.plot(x_points, y_points, 'o-', linewidth=2, markersize=2,
                  label=ylabel)
         plt.fill_between(x_points, y_points - y_std,
                          y_points + y_std, alpha=0.2)
     else:
-        plt.plot(x_points, y_points, 'o-', linewidth=1, markersize=2,
+        plt.plot(x_points, y_points, 'o-', linewidth=2, markersize=2,
                  label=ylabel)
 
     min_value = np.min(y_points)
@@ -249,7 +249,7 @@ def plot_sse(title, df, xlabel='Number of Clusters', ylabel='SSE'):
     plt.grid()
     plt.tight_layout()
 
-    plt.plot(df.index.values, df.iloc[:, 0], 'o-', linewidth=1, markersize=2)
+    plt.plot(df.index.values, df.iloc[:, 0], 'o-', linewidth=1, markersize=2,  color="red")
     plt.legend(loc="best")
 
     return plt
@@ -270,19 +270,19 @@ def plot_loglikelihood(title, df, xlabel='Number of Clusters', ylabel='Log Likel
     return plt
 
 
-def plot_bic(title, df, xlabel='Number of Clusters', ylabel='BIC'):
-    plt.close()
-    plt.figure()
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.grid()
-    plt.tight_layout()
-
-    plt.plot(df.index.values, df.iloc[:, 0], 'o-', linewidth=1, markersize=2)
-    plt.legend(loc="best")
-
-    return plt
+# def plot_bic(title, df, xlabel='Number of Clusters', ylabel='BIC'):
+#     plt.close()
+#     plt.figure()
+#     plt.title(title)
+#     plt.xlabel(xlabel)
+#     plt.ylabel(ylabel)
+#     plt.grid()
+#     plt.tight_layout()
+#
+#     plt.plot(df.index.values, df.iloc[:, 0], 'o-', linewidth=1, markersize=2)
+#     plt.legend(loc="best")
+#
+#     return plt
 
 
 INITIAL_FIG_SIZE = plt.rcParams["figure.figsize"]
@@ -577,17 +577,17 @@ def read_and_plot_loglikelihood(problem, file, output_dir):
         format='png', bbox_inches='tight', dpi=150)
 
 
-def read_and_plot_bic(problem, file, output_dir):
-    ds_name, ds_readable_name = get_ds_name(file, bic_file_name_regex)
-    logger.info("Plotting BIC for file {} to {} ({})".format(file, output_dir, ds_name))
-
-    title = '{} - {}: BIC vs Number of Clusters'.format(ds_readable_name, problem['name'])
-    df = pd.read_csv(file).set_index('k')
-    p = plot_bic(title, df)
-    p = watermark(p)
-    p.savefig(
-        '{}/{}/{}_bic.png'.format(output_dir, problem['name'], ds_name),
-        format='png', bbox_inches='tight', dpi=150)
+# def read_and_plot_bic(problem, file, output_dir):
+#     ds_name, ds_readable_name = get_ds_name(file, bic_file_name_regex)
+#     logger.info("Plotting BIC for file {} to {} ({})".format(file, output_dir, ds_name))
+#
+#     title = '{} - {}: BIC vs Number of Clusters'.format(ds_readable_name, problem['name'])
+#     df = pd.read_csv(file).set_index('k')
+#     p = plot_bic(title, df)
+#     p = watermark(p)
+#     p.savefig(
+#         '{}/{}/{}_bic.png'.format(output_dir, problem['name'], ds_name),
+#         format='png', bbox_inches='tight', dpi=150)
 
 
 def read_and_plot_sil_score(problem, file, output_dir):
@@ -630,15 +630,15 @@ def read_and_plot_combined(problem, clustering_algo, ds_name, ds_readable_name, 
     data_columns = sorted(files.keys())
     for c in data_columns:
         df = pd.read_csv(files[c])
-        if clustering_algo == 'Kmeans' and c == 'sse':
-            df = df.set_index('k')
-            extra_df = df
-            extra_name = 'SSE'
-        elif clustering_algo == 'GMM' and c == 'BIC':
-            df = df.set_index('k')
-            extra_df = df
-            extra_name = 'BIC'
-        elif c == 'tsne':
+        # if clustering_algo == 'Kmeans' and c == 'sse':
+        #     df = df.set_index('k')
+        #     extra_df = df
+        #     extra_name = 'SSE'
+        # elif clustering_algo == 'GMM' and c == 'BIC':
+        #     df = df.set_index('k')
+        #     extra_df = df
+        #     extra_name = 'BIC'
+        if c == 'tsne':
             tsne_df = df
         elif c != 'sse' and c != 'BIC':
             df = df.set_index('k')
@@ -688,7 +688,7 @@ def read_and_plot_problem(problem_name, problem, output_dir):
 
     clustering_bic_files = glob.glob('{}/clustering/*_bic.csv'.format(problem_path))
     logger.info("Clustering BIC files {}".format(clustering_bic_files))
-    [read_and_plot_bic(problem, f, output_dir) for f in clustering_bic_files]
+    #[read_and_plot_bic(problem, f, output_dir) for f in clustering_bic_files]
 
     clustering_sil_score = glob.glob('{}/clustering/*_sil_score.csv'.format(problem_path))
     logger.info("Clustering Sil score files {}".format(clustering_sil_score))
