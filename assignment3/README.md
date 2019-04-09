@@ -1,5 +1,8 @@
 # Unsupervised Learning and Dimensionality Reduction
 
+- All of code is stored at https://github.com/jonhilgart22/CS-7641-assignments
+- pip install -r requirements.txt into your environment
+
 ## Output
 Output CSVs and images are written to `./output` and `./output/images` respectively. Sub-folders will be created for each DR algorithm (ICA, PCA, etc) as well as the benchmark.
 

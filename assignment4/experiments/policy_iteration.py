@@ -41,7 +41,7 @@ class PolicyIterationExperiment(BaseExperiment):
             self.log("{}/{} Processing PI with discount factor {}".format(runs, dims, discount_factor))
 
             p = solvers.PolicyIterationSolver(self._details.env, discount_factor=discount_factor,
-                                              max_policy_eval_steps=3000, verbose=self._verbose)
+                                              max_policy_eval_steps=5000, verbose=self._verbose)
 
             stats = self.run_solver_and_collect(p, self.convergence_check_fn)
 

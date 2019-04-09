@@ -71,4 +71,4 @@ class SVDExperiment(experiments.BaseExperiment):
         self.log("Running clustering sub-experiment")
         updated_ds = self._details.ds.reload_from_hdf(hdf_path=hdf_path, hdf_ds_name=self._details.ds_name,
                                                       preprocess=False)
-        experiments.run_subexperiment(self, self._out.format('clustering/'), updated_ds)
+        experiments.run_subexperiment(self, self._out.format('new_clustering/'), updated_ds)
