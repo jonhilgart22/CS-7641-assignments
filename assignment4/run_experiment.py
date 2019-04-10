@@ -92,6 +92,7 @@ if __name__ == '__main__':
         run_experiment(experiment_details, experiments.ValueIterationExperiment, 'VI', verbose, timings)
 
     if args.q or args.all:
+        print('Running Q-Experiment')
         run_experiment(experiment_details, experiments.QLearnerExperiment, 'Q', verbose, timings)
 
     logger.info(timings)

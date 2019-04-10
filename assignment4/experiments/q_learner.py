@@ -48,6 +48,10 @@ class QLearnerExperiment(BaseExperiment):
                     for epsilon_decay in epsilon_decays:
                         for discount_factor in discount_factors:
                             t = time.clock()
+                            print("{}/{} Processing Q with alpha {}, q_init {}, epsilon {}, epsilon_decay {},"
+                                     " discount_factor {}".format(
+                                runs, dims, alpha, q_init, epsilon, epsilon_decay, discount_factor
+                            ))
                             self.log("{}/{} Processing Q with alpha {}, q_init {}, epsilon {}, epsilon_decay {},"
                                      " discount_factor {}".format(
                                 runs, dims, alpha, q_init, epsilon, epsilon_decay, discount_factor
@@ -63,6 +67,10 @@ class QLearnerExperiment(BaseExperiment):
 
                             self.log("Took {} episodes".format(len(stats.steps)))
                             stats.to_csv('{}/Q/{}_{}_{}_{}_{}_{}.csv'.format(OUTPUT_DIRECTORY, self._details.env_name,
+                                                                          alpha, q_init, epsilon, epsilon_decay,
+                                                                          discount_factor))
+                            print('Should have written data to .csv')
+                            print('{}/Q/{}_{}_{}_{}_{}_{}.csv'.format(OUTPUT_DIRECTORY, self._details.env_name,
                                                                           alpha, q_init, epsilon, epsilon_decay,
                                                                           discount_factor))
                             stats.pickle_results('{}/Q/pkl/{}_{}_{}_{}_{}_{}_{}.pkl'.format(OUTPUT_DIRECTORY,
