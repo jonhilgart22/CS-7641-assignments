@@ -84,7 +84,7 @@ class RewardingFrozenLakeEnv(discrete.DiscreteEnv):
 
     metadata = {'render.modes': ['human', 'ansi']}
 
-    def __init__(self, desc=None, map_name="4x4", rewarding=True, step_reward=-0.1, hole_reward=-1, is_slippery=True):
+    def __init__(self, desc=None, map_name="4x4", rewarding=True, step_reward=-0.1, hole_reward=-100, is_slippery=True):
         if desc is None and map_name is None:
             raise ValueError('Must provide either desc or map_name')
         elif desc is None:
@@ -126,14 +126,14 @@ class RewardingFrozenLakeEnv(discrete.DiscreteEnv):
                     li = P[s][a]
                     letter = desc[row, col]
                     if letter in b'G':
-                        li.append((10.0, s, 0, True))
+                        li.append((100.0, s, 0, True))
                     else:
                         if is_slippery:
                             for b in [(a - 1) % 4, a, (a + 1) % 4]:
                                 newrow, newcol = inc(row, col, b)
                                 newstate = to_s(newrow, newcol)
                                 newletter = desc[newrow, newcol]
-                                done = bytes(newletter) in b'GH'
+                                done = bytes(newletter) in b'G'
                                 rew = float(newletter == b'G')
                                 if self.rewarding:
                                     if newletter == b'F':
@@ -145,7 +145,7 @@ class RewardingFrozenLakeEnv(discrete.DiscreteEnv):
                             newrow, newcol = inc(row, col, a)
                             newstate = to_s(newrow, newcol)
                             newletter = desc[newrow, newcol]
-                            done = bytes(newletter) in b'GH'
+                            done = bytes(newletter) in b'G'
                             rew = float(newletter == b'G')
                             if self.rewarding:
                                 if newletter == b'F':

@@ -1,4 +1,3 @@
 ,PI,VI,Q
-cliff_walking,,,"{'name': 'cliff_walking', 'readable_name': 'Cliff Walking', 'index': 32, 'params': {'alpha': 0.1, 'q_init': 0, 'epsilon': 0.1, 'epsilon_decay': 0.0001, 'discount_factor': 0.2}, 'param_str': '0.1_0_0.1_0.0001_0.2'}"
-frozen_lake,,,"{'name': 'frozen_lake', 'readable_name': 'Frozen Lake', 'index': 68, 'params': {'alpha': 0.5, 'q_init': 'random', 'epsilon': 0.1, 'epsilon_decay': 0.0001, 'discount_factor': 0.8}, 'param_str': '0.5_random_0.1_0.0001_0.8'}"
-large_frozen_lake,,,"{'name': 'large_frozen_lake', 'readable_name': 'Large Frozen Lake', 'index': 179, 'params': {'alpha': 0.9, 'q_init': 0, 'epsilon': 0.5, 'epsilon_decay': 0.0001, 'discount_factor': 0.9}, 'param_str': '0.9_0_0.5_0.0001_0.9'}"
+frozen_lake,,,"{'name': 'frozen_lake', 'readable_name': 'Frozen Lake', 'index': 89, 'params': {'alpha': 0.5, 'q_init': 'random', 'epsilon': 0.5, 'epsilon_decay': 0.0001, 'discount_factor': 0.9}, 'param_str': '0.5_random_0.5_0.0001_0.9'}"
+large_frozen_lake,,,"{'name': 'large_frozen_lake', 'readable_name': 'Large Frozen Lake', 'index': 62, 'params': {'alpha': 0.5, 'q_init': 'random', 'epsilon': 0.1, 'epsilon_decay': 0.0001, 'discount_factor': 0.2}, 'param_str': '0.5_random_0.1_0.0001_0.2'}"
